@@ -56,7 +56,7 @@ class Cuenta {
         return $this->operaciones;
     }
 
-    private function setId(string $id) {
+    public function setId(string $id) {
         $this->id = $id;
     }
 

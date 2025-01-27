@@ -51,7 +51,7 @@ class Operacion {
         return $this->descripcion;
     }
 
-    private function setTipo(TipoOperacion $tipo) {
+    public function setTipo(TipoOperacion $tipo) {
         $this->tipo = $tipo;
     }
 
@@ -59,7 +59,7 @@ class Operacion {
         $this->cantidad = $cantidad;
     }
 
-    private function setFecha(DateTime $fecha) {
+    public function setFecha(DateTime $fecha) {
         $this->fecha = $fecha;
     }
 
