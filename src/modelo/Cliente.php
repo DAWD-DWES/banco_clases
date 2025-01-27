@@ -85,7 +85,7 @@ class Cliente {
         return $this->idCuentas;
     }
 
-    private function setDni(string $dni) {
+    public function setDni(string $dni) {
         $this->dni = $dni;
     }
 
@@ -113,7 +113,7 @@ class Cliente {
         $this->idCuentas = $idCuentas;
     }
 
-    public function compruebaIdCuenta(string $idCuenta): bool {
+    public function existeIdCuenta(string $idCuenta): bool {
         $clave = array_search($idCuenta, $this->getIdCuentas());
         // Si la clave existe en el array, elimina el elemento
         if ($clave !== false) {
@@ -129,15 +129,6 @@ class Cliente {
      */
     public function altaCuenta(string $idCuenta) {
         $this->idCuentas[] = $idCuenta;
-    }
-
-    /**
-     * Comprueba si el cliente tiene esa cuenta
-     * @param string $idCuenta
-     * @return bool
-     */
-    public function existeCuenta(string $idCuenta): bool {
-        return (array_search($idCuenta, $this->getIdCuentas()) !== false);
     }
 
     /**

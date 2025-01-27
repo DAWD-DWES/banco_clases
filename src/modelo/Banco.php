@@ -268,7 +268,7 @@ class Banco {
      */
     public function bajaCuentaCliente(string $dni, string $idCuenta) {
         $cliente = $this->getCliente($dni);
-        if ($cliente->compruebaIdCuenta($idCuenta)) {
+        if ($cliente->existeIdCuenta($idCuenta)) {
             $this->eliminaCuenta($idCuenta);
             $cliente->bajaCuenta($idCuenta);
         }
@@ -294,7 +294,7 @@ class Banco {
      */
     public function ingresoCuentaCliente(string $dni, string $idCuenta, float $cantidad, string $descripcion) {
         $cliente = $this->getCliente($dni);
-        if ($cliente->compruebaIdCuenta($idCuenta)) {
+        if ($cliente->existeIdCuenta($idCuenta)) {
             $cuenta = $this->getCuenta($idCuenta);
             $cuenta->ingreso($cantidad, $descripcion);
         }
@@ -310,7 +310,7 @@ class Banco {
      */
     public function debitoCuentaCliente(string $dni, string $idCuenta, float $cantidad, string $descripcion) {
         $cliente = $this->getCliente($dni);
-        if ($cliente->compruebaIdCuenta($idCuenta)) {
+        if ($cliente->existeIdCuenta($idCuenta)) {
             $cuenta = $this->getCuenta($idCuenta);
             $cuenta->debito($cantidad, $descripcion);
         }
@@ -328,7 +328,7 @@ class Banco {
     public function realizaTransferencia(string $dniClienteOrigen, string $dniClienteDestino, string $idCuentaOrigen, string $idCuentaDestino, float $cantidad) {
         $clienteOrigen = $this->getCliente($dniClienteOrigen);
         $clienteDestino = $this->getCliente($dniClienteDestino);
-        if ($clienteOrigen->compruebaIdCuenta($idCuentaOrigen) && $clienteDestino->compruebaIdCuenta($idCuentaDestino)) {
+        if ($clienteOrigen->existeIdCuenta($idCuentaOrigen) && $clienteDestino->existeIdCuenta($idCuentaDestino)) {
             $this->debitoCuentaCliente($dniClienteOrigen, $idCuentaOrigen, $cantidad, "Transferencia de $cantidad € desde su cuenta $idCuentaOrigen a la cuenta $idCuentaDestino");
             $this->ingresoCuentaCliente($dniClienteDestino, $idCuentaDestino, $cantidad, "Transferencia de $cantidad € a su cuenta $idCuentaDestino desde la cuenta $idCuentaOrigen");
         }

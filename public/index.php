@@ -22,12 +22,10 @@ foreach ($datosClientes as $datosCliente) {
 
     // Crear tres cuentas bancarias para cada cliente
     for ($i = 0; $i < 3; $i++) {
-        $idCuenta = $banco->altaCuentaCliente($datosCliente['dni'], rand(0, 100));
-        // Realizar tres operaciones de ingreso en cada cuenta
+        $idCuenta = $banco->altaCuentaCliente($datosCliente['dni'], rand(0, 500));
+        // Realizar tres operaciones de ingreso o debito en cada cuenta
         for ($j = 0; $j < 3; $j++) {
             $tipoOperacion = rand(0, 1) ? TipoOperacion::INGRESO : TipoOperacion::DEBITO;
-            $cantidad = rand(0, 500);
-            $banco->ingresoCuentaCliente($datosCliente['dni'], $idCuenta, $cantidad, "Ingreso de $cantidad € en la cuenta");
             $cantidad = rand(0, 500);
             try {
                 if ($tipoOperacion === TipoOperacion::INGRESO) {
@@ -42,13 +40,15 @@ foreach ($datosClientes as $datosCliente) {
     }
 }
 
+// Realiza una transferencia de 500 € desde la cuenta de un cliente a la cuenta de otro.
+
 try {
     $banco->realizaTransferencia('12345678A', '23456789B', ($banco->obtenerCliente('12345678A')->getIdCuentas())[1], ($banco->obtenerCliente('23456789B')->getIdCuentas())[0], 500);
 } catch (SaldoInsuficienteException $ex) {
     echo $ex->getMessage() . "</br>";
 }
 
-echo "<h1>Clientes y cuentas</h1>";
+echo "<h1>Clientes y cuentas del banco</h1>";
 
 // Mostrar las cuentas y saldos de las cuentas de los clientes
 $clientes = $banco->obtenerClientes();
@@ -57,22 +57,26 @@ foreach ($clientes as $dniCliente => $cliente) {
     $idCuentas = $cliente->getIdCuentas();
     foreach ($idCuentas as $idCuenta) {
         $cuenta = $banco->obtenerCuenta($idCuenta);
-        echo "</br>$cuenta </br>";
+        echo "</br>$cuenta</br>";
     }
 }
 
+// Realizar la baja de la cuenta de un cliente
+
 $banco->bajaCuentaCliente('12345678A', ($banco->obtenerCliente('12345678A')->getIdCuentas())[0]);
+
+// Realizar la baja de un ciente
 $banco->bajaCliente('34567890C');
 
 echo "<h1>Clientes y cuentas del banco (baja de una cuenta y un cliente)</h1>";
 
-// Mostrar las cuentas y saldos de las cuentas de los clientes
+// Mostrar de nuevo las cuentas y saldos de las cuentas de los clientes
 $clientes = $banco->obtenerClientes();
 foreach ($clientes as $dniCliente => $cliente) {
     echo "</br> Datos del cliente con DNI: $dniCliente</br>";
     $idCuentas = $cliente->getIdCuentas();
     foreach ($idCuentas as $idCuenta) {
         $cuenta = $banco->obtenerCuenta($idCuenta);
-        echo "</br>$cuenta </br>";
+        echo "</br>$cuenta</br>";
     }
 }    
