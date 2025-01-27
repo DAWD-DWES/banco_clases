@@ -6,7 +6,6 @@ require_once '../src/modelo/Cliente.php';
 require_once '../src/modelo/Cuenta.php';
 require_once '../src/modelo/TipoOperacion.php';
 
-
 $banco = new Banco("Midas");
 
 // Datos de clientes de ejemplo
@@ -45,6 +44,21 @@ foreach ($datosClientes as $datosCliente) {
 try {
     $banco->realizaTransferencia('12345678A', '23456789B', ($banco->obtenerCliente('12345678A')->getIdCuentas())[1], ($banco->obtenerCliente('23456789B')->getIdCuentas())[0], 500);
 } catch (SaldoInsuficienteException $ex) {
+    echo $ex->getMessage() . "</br>";
+}
+
+
+// Transferencias que lanzan excepciones
+
+try {
+    $banco->realizaTransferencia('12345678A', '23456789B', ($banco->obtenerCliente('12345678A')->getIdCuentas())[1], ($banco->obtenerCliente('23456789B')->getIdCuentas())[0], 500);
+} catch (Exception $ex) {
+    echo $ex->getMessage() . "</br>";
+}
+
+try {
+    $banco->realizaTransferencia('12345878A', '23456789B', ($banco->obtenerCliente('23456789B')->getIdCuentas())[1], ($banco->obtenerCliente('12345678A')->getIdCuentas())[0], 500);
+} catch (Exception $ex) {
     echo $ex->getMessage() . "</br>";
 }
 
