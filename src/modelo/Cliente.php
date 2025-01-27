@@ -1,5 +1,7 @@
 <?php
 
+require_once "../src/excepciones/CuentaNoPerteneceClienteException.php";
+
 /**
  * Clase Cliente 
  */
