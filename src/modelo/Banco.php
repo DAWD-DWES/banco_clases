@@ -309,10 +309,14 @@ class Banco {
      * @param string $descripcion
      */
     public function debitoCuentaCliente(string $dni, string $idCuenta, float $cantidad, string $descripcion) {
-        $cliente = $this->getCliente($dni);
-        if ($cliente->existeIdCuenta($idCuenta)) {
-            $cuenta = $this->getCuenta($idCuenta);
-            $cuenta->debito($cantidad, $descripcion);
+        try {
+            $cliente = $this->getCliente($dni);
+            if ($cliente->existeIdCuenta($idCuenta)) {
+                $cuenta = $this->getCuenta($idCuenta);
+                $cuenta->debito($cantidad, $descripcion);
+            }
+        } catch (Exception $ex) {
+            echo $ex->getMessage();
         }
     }
 
