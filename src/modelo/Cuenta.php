@@ -32,11 +32,10 @@ class Cuenta {
      */
     private array $operaciones;
 
-    public function __construct(string $idCliente, float $cantidad = 0) {
+    public function __construct(string $idCliente) {
         $this->setId(uniqid());
         $this->setSaldo(0);
         $this->setOperaciones();
-        $this->ingreso($cantidad, "Ingreso inicial de $cantidad € en la cuenta");
         $this->setIdCliente($idCliente);
     }
 
