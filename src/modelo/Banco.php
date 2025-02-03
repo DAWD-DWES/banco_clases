@@ -1,7 +1,7 @@
 <?php
 
-require_once "Cliente.php";
-require_once "Cuenta.php";
+require_once "../src/modelo/Cliente.php";
+require_once "../src/modelo/Cuenta.php";
 require_once "../src/excepciones/ClienteNoEncontradoException.php";
 require_once "../src/excepciones/CuentaNoEncontradaException.php";
 
@@ -72,7 +72,7 @@ class Banco {
      * @param string $nombre Nombre del banco
      * @return $this
      */
-    public function setNombre(string $nombre) {
+    public function setNombre(string $nombre): void{
         $this->nombre = $nombre;
     }
 
@@ -82,7 +82,7 @@ class Banco {
      * @param array $clientes Colección de clientes del banco
      * @return $this
      */
-    public function setClientes(array $clientes = []) {
+    public function setClientes(array $clientes = []): void {
         $this->clientes = $clientes;
     }
 
@@ -92,7 +92,7 @@ class Banco {
      * @param array $cuentas Colección de cuentas del banco
      * @return $this
      */
-    public function setCuentas(array $cuentas = []) {
+    public function setCuentas(array $cuentas = []): void {
         $this->cuentas = $cuentas;
     }
 
@@ -316,7 +316,7 @@ class Banco {
                 $cuenta->debito($cantidad, $descripcion);
             }
         } catch (Exception $ex) {
-            echo $ex->getMessage();
+            echo $ex->getMessage() . "</br>";
         }
     }
 

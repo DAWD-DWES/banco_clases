@@ -48,20 +48,6 @@ try {
 }
 
 
-// Transferencias que lanzan excepciones
-
-try {
-    $banco->realizaTransferencia('12345678A', '23456789B', ($banco->obtenerCliente('12345678A')->getIdCuentas())[1], ($banco->obtenerCliente('23456789B')->getIdCuentas())[0], 500);
-} catch (Exception $ex) {
-    echo $ex->getMessage() . "</br>";
-}
-
-try {
-    $banco->realizaTransferencia('12345878A', '23456789B', ($banco->obtenerCliente('23456789B')->getIdCuentas())[1], ($banco->obtenerCliente('12345678A')->getIdCuentas())[0], 500);
-} catch (Exception $ex) {
-    echo $ex->getMessage() . "</br>";
-}
-
 echo "<h1>Clientes y cuentas del banco</h1>";
 
 // Mostrar las cuentas y saldos de las cuentas de los clientes

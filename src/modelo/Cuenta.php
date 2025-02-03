@@ -1,6 +1,6 @@
 <?php
 
-require_once "Operacion.php";
+require_once "../src/modelo/Operacion.php";
 require_once "../src/excepciones/SaldoInsuficienteException.php";
 
 /**

@@ -1,6 +1,6 @@
 <?php
 
-require_once "TipoOperacion.php";
+require_once "../src/modelo/TipoOperacion.php";
 
 /**
  * Clase Operacion
