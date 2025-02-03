@@ -72,7 +72,7 @@ class Banco {
      * @param string $nombre Nombre del banco
      * @return $this
      */
-    public function setNombre(string $nombre): void{
+    public function setNombre(string $nombre): void {
         $this->nombre = $nombre;
     }
 
@@ -190,7 +190,7 @@ class Banco {
      * @return array
      */
     public function obtenerCuentas(): array {
-        return unserialize(serialize($this->cuentas));
+        return array_map(fn($cuenta) => $this->obtenerCuenta($cuenta), $this->getCuentas);
     }
 
     // Operaciones del interfaz del banco
@@ -243,7 +243,7 @@ class Banco {
      * @return array
      */
     public function obtenerClientes(): array {
-        return array_map (fn ($cliente) => clone($cliente), $this->getClientes());
+        return array_map(fn($cliente) => clone($cliente), $this->getClientes());
     }
 
     /**
@@ -271,6 +271,8 @@ class Banco {
         if ($cliente->existeIdCuenta($idCuenta)) {
             $this->eliminaCuenta($idCuenta);
             $cliente->bajaCuenta($idCuenta);
+        } else {
+            throw new CuentaNoPerteneceClienteException($dni, $idCuenta);
         }
     }
 
@@ -281,7 +283,11 @@ class Banco {
      * @return type
      */
     public function obtenerCuenta(string $idCuenta): Cuenta {
-        return unserialize(serialize($this->getCuenta($idCuenta)));
+        $cuenta = $this->getCuenta($idCuenta);
+        $operacionesClone = array_map(fn($operacion) => clone($operacion), $cuenta->getOperaciones());
+        $cuentaClone = clone($cuenta);
+        $cuentaClone->setOperaciones($operacionesClone);
+        return ($cuentaClone);
     }
 
     /**
@@ -297,6 +303,8 @@ class Banco {
         if ($cliente->existeIdCuenta($idCuenta)) {
             $cuenta = $this->getCuenta($idCuenta);
             $cuenta->ingreso($cantidad, $descripcion);
+        } else {
+            throw new CuentaNoPerteneceClienteException($dni, $idCuenta);
         }
     }
 
@@ -309,14 +317,12 @@ class Banco {
      * @param string $descripcion
      */
     public function debitoCuentaCliente(string $dni, string $idCuenta, float $cantidad, string $descripcion) {
-        try {
-            $cliente = $this->getCliente($dni);
-            if ($cliente->existeIdCuenta($idCuenta)) {
-                $cuenta = $this->getCuenta($idCuenta);
-                $cuenta->debito($cantidad, $descripcion);
-            }
-        } catch (Exception $ex) {
-            echo $ex->getMessage() . "</br>";
+        $cliente = $this->getCliente($dni);
+        if ($cliente->existeIdCuenta($idCuenta)) {
+            $cuenta = $this->getCuenta($idCuenta);
+            $cuenta->debito($cantidad, $descripcion);
+        } else {
+            throw new CuentaNoPerteneceClienteException($dni, $idCuenta);
         }
     }
 

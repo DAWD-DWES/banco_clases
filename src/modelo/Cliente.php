@@ -115,21 +115,20 @@ class Cliente {
         $this->idCuentas = $idCuentas;
     }
 
+    /**
+     * Comprueba si la cuenta pertenece al cliente
+     * @param string $idCuenta
+     */
     public function existeIdCuenta(string $idCuenta): bool {
         $clave = array_search($idCuenta, $this->getIdCuentas());
-        // Si la clave existe en el array, elimina el elemento
-        if ($clave !== false) {
-            return true;
-        } else {
-            throw new CuentaNoPerteneceClienteException($this->dni, $idCuenta);
-        }
+        return ($clave !== false);
     }
 
     /**
      * Alta de la cuenta en el cliente
      * @param string $idCuenta
      */
-    public function altaCuenta(string $idCuenta) {
+    public function altaCuenta(string $idCuenta): void {
         $this->idCuentas[] = $idCuenta;
     }
 
@@ -137,7 +136,7 @@ class Cliente {
      * Baja de la cuenta en para el cliente
      * @param string $idCuenta
      */
-    public function bajaCuenta(string $idCuenta) {
+    public function bajaCuenta(string $idCuenta): void {
         $clave = array_search($idCuenta, $this->getIdCuentas());
         // Si la clave existe en el array, elimina el elemento
         if ($clave !== false) {

@@ -106,7 +106,7 @@ class Cuenta {
         $operacionesStr = implode("</br>", array_map(fn($operacion) => "{$operacion->__toString()}", $this->getOperaciones())); // Convertir las operaciones en una cadena separada por saltos de línea
 
         return "Cuenta ID: {$this->getId()}</br>" .
-                // "Cliente ID: {$this->getIdCliente()}</br>" .
+                "Cliente ID: {$this->getIdCliente()}</br>" .
                 "Saldo: $saldoFormatted</br>" .
                 "$operacionesStr";
     }
