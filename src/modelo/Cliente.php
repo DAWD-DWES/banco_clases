@@ -120,8 +120,12 @@ class Cliente {
      * @param string $idCuenta
      */
     public function existeIdCuenta(string $idCuenta): bool {
-        $clave = array_search($idCuenta, $this->getIdCuentas());
-        return ($clave !== false);
+        if (array_search($idCuenta, $this->getIdCuentas()) !== false) {
+            return true;
+        }
+        else {
+            throw new CuentaNoPerteneceClienteException($this->getDNI(), $idCuenta);
+        }
     }
 
     /**

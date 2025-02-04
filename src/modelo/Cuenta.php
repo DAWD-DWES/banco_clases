@@ -38,6 +38,10 @@ class Cuenta {
         $this->setOperaciones();
         $this->setIdCliente($idCliente);
     }
+    
+    public function __clone() {
+        $this->setOperaciones(array_map(fn($operacion) => clone ($operacion), $this->getOperaciones()));
+    }
 
     public function getId(): string {
         return $this->id;
@@ -51,7 +55,7 @@ class Cuenta {
         return $this->idCliente;
     }
 
-    public function getOperaciones(): array {
+    private function getOperaciones(): array {
         return $this->operaciones;
     }
 
@@ -67,10 +71,14 @@ class Cuenta {
         $this->idCliente = $idCliente;
     }
 
-    public function setOperaciones(array $operaciones = []) {
+    private function setOperaciones(array $operaciones = []) {
         $this->operaciones = $operaciones;
     }
 
+    public function obtenerOperaciones(): array {
+        return array_map(fn($operacion) => clone ($operacion), $this->getOperaciones());
+    }
+    
     /**
      * Ingreso de una cantidad en una cuenta
      * @param type $cantidad Cantidad de dinero
