@@ -39,6 +39,7 @@ class Cuenta {
         $this->setIdCliente($idCliente);
     }
     
+ 
     public function __clone() {
         $this->setOperaciones(array_map(fn($operacion) => clone ($operacion), $this->getOperaciones()));
     }
@@ -59,19 +60,19 @@ class Cuenta {
         return $this->operaciones;
     }
 
-    public function setId(string $id) {
+    public function setId(string $id): void {
         $this->id = $id;
     }
 
-    public function setSaldo(float $saldo) {
+    public function setSaldo(float $saldo): void {
         $this->saldo = $saldo;
     }
 
-    public function setIdCliente(string $idCliente) {
+    public function setIdCliente(string $idCliente): void {
         $this->idCliente = $idCliente;
     }
 
-    private function setOperaciones(array $operaciones = []) {
+    private function setOperaciones(array $operaciones = []): void {
         $this->operaciones = $operaciones;
     }
 
@@ -84,7 +85,7 @@ class Cuenta {
      * @param type $cantidad Cantidad de dinero
      * @param type $descripcion Descripción del ingreso
      */
-    public function ingreso(float $cantidad, string $descripcion) {
+    public function ingreso(float $cantidad, string $descripcion): void {
         if ($cantidad > 0) {
             $operacion = new Operacion(TipoOperacion::INGRESO, $cantidad, $descripcion);
             $this->agregaOperacion($operacion);
@@ -98,7 +99,7 @@ class Cuenta {
      * @param type $descripcion Descripcion del debito
      * @throws SaldoInsuficienteException
      */
-    public function debito(float $cantidad, string $descripcion) {
+    public function debito(float $cantidad, string $descripcion): void {
         if ($cantidad <= $this->getSaldo()) {
             $operacion = new Operacion(TipoOperacion::DEBITO, $cantidad, $descripcion);
             $this->agregaOperacion($operacion);
@@ -108,7 +109,7 @@ class Cuenta {
         }
     }
 
-    public function __toString() {
+    public function __toString(): string {
         $saldoFormatted = number_format($this->getSaldo(), 2); // Formatear el saldo con dos decimales
         $operacionesStr = implode("</br>", array_map(fn($operacion) => "{$operacion->__toString()}", $this->getOperaciones())); // Convertir las operaciones en una cadena separada por saltos de línea
 
@@ -122,7 +123,7 @@ class Cuenta {
      * Agrega operación a la lista de operaciones de la cuenta
      * @param type $operacion Operación a añadir
      */
-    private function agregaOperacion(Operacion $operacion) {
+    private function agregaOperacion(Operacion $operacion): void {
         $this->operaciones[] = $operacion;
     }
 }

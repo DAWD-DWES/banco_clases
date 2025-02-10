@@ -82,7 +82,7 @@ class Banco {
      * @param array $clientes Colección de clientes del banco
      * @return $this
      */
-    public function setClientes(array $clientes = []): void {
+    private function setClientes(array $clientes = []): void {
         $this->clientes = $clientes;
     }
 
@@ -92,7 +92,7 @@ class Banco {
      * @param array $cuentas Colección de cuentas del banco
      * @return $this
      */
-    public function setCuentas(array $cuentas = []): void {
+    private function setCuentas(array $cuentas = []): void {
         $this->cuentas = $cuentas;
     }
 
@@ -206,7 +206,7 @@ class Banco {
      * @param DateTime $fechaNacimiento
      * @return bool
      */
-    public function altaCliente(string $dni, string $nombre, string $apellido1, string $apellido2, string $telefono, string $fechaNacimiento) {
+    public function altaCliente(string $dni, string $nombre, string $apellido1, string $apellido2, string $telefono, string $fechaNacimiento): void {
         $cliente = new Cliente($dni, $nombre, $apellido1, $apellido2, $telefono, $fechaNacimiento);
         $this->agregaCliente($cliente);
     }
@@ -216,7 +216,7 @@ class Banco {
      * 
      * @param string $dni
      */
-    public function bajaCliente(string $dni) {
+    public function bajaCliente(string $dni): void {
         $cliente = $this->getCliente($dni);
         $cuentas = $cliente->getIdCuentas();
         $cliente->setIdCuentas([]);
@@ -266,7 +266,7 @@ class Banco {
      * @param string $dni
      * @param string $idCuenta
      */
-    public function bajaCuentaCliente(string $dni, string $idCuenta) {
+    public function bajaCuentaCliente(string $dni, string $idCuenta): void {
         $cliente = $this->getCliente($dni);
         if ($cliente->existeIdCuenta($idCuenta)) {
             $this->eliminaCuenta($idCuenta);
@@ -308,7 +308,7 @@ class Banco {
      * @param float $cantidad
      * @param string $descripcion
      */
-    public function debitoCuentaCliente(string $dni, string $idCuenta, float $cantidad, string $descripcion) {
+    public function debitoCuentaCliente(string $dni, string $idCuenta, float $cantidad, string $descripcion): void {
         $cliente = $this->getCliente($dni);
         if ($cliente->existeIdCuenta($idCuenta)) {
             $cuenta = $this->getCuenta($idCuenta);

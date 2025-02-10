@@ -51,19 +51,19 @@ class Operacion {
         return $this->descripcion;
     }
 
-    public function setTipo(TipoOperacion $tipo) {
+    public function setTipo(TipoOperacion $tipo): void {
         $this->tipo = $tipo;
     }
 
-    public function setCantidad(float $cantidad) {
+    public function setCantidad(float $cantidad): void {
         $this->cantidad = $cantidad;
     }
 
-    public function setFecha(DateTime $fecha) {
+    public function setFecha(DateTime $fecha): void {
         $this->fecha = $fecha;
     }
 
-    public function setDescripcion(string $descripcion) {
+    public function setDescripcion(string $descripcion): void {
         $this->descripcion = $descripcion;
     }
 

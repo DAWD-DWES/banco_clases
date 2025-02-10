@@ -87,31 +87,31 @@ class Cliente {
         return $this->idCuentas;
     }
 
-    public function setDni(string $dni) {
+    public function setDni(string $dni) : void{
         $this->dni = $dni;
     }
 
-    public function setNombre(string $nombre) {
+    public function setNombre(string $nombre): void {
         $this->nombre = $nombre;
     }
 
-    public function setApellido1(string $apellido1) {
+    public function setApellido1(string $apellido1): void {
         $this->apellido1 = $apellido1;
     }
 
-    public function setApellido2(string $apellido2) {
+    public function setApellido2(string $apellido2): void {
         $this->apellido2 = $apellido2;
     }
 
-    public function setTelefono(string $telefono) {
+    public function setTelefono(string $telefono): void {
         $this->telefono = $telefono;
     }
 
-    public function setFechaNacimiento(DateTime $fechaNacimiento) {
+    public function setFechaNacimiento(DateTime $fechaNacimiento): void {
         $this->fechaNacimiento = $fechaNacimiento;
     }
 
-    public function setIdCuentas(array $idCuentas) {
+    public function setIdCuentas(array $idCuentas): void {
         $this->idCuentas = $idCuentas;
     }
 

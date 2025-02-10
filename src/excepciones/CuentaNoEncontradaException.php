@@ -1,7 +1,7 @@
 <?php
 
 class CuentaNoEncontradaException extends Exception {
-    private $idCuenta;
+    private string $idCuenta;
     
     public function __construct(string $idCuenta) {
         $this->idCuenta = $idCuenta;
@@ -10,7 +10,7 @@ class CuentaNoEncontradaException extends Exception {
         parent::__construct($message);
     }
 
-    public function getIdCuenta() {
+    public function getIdCuenta(): string {
         return $this->idCuenta;
     }
 }
